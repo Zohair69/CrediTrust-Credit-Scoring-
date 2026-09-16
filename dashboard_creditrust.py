@@ -57,8 +57,16 @@ MODEL_COLORS = {
 
 CUSTOM_CSS = f"""
 <style>
+    * {{
+        animation: none !important;
+        transition: none !important;
+    }}
     .stApp {{
         background-color: {COLORS['bg']};
+        opacity: 1 !important;
+    }}
+    [data-testid="stAppViewContainer"], [data-testid="stMarkdownContainer"], h1, h2, h3, p {{
+        opacity: 1 !important;
     }}
     section[data-testid="stSidebar"] {{
         background-color: {COLORS['primary']};
@@ -491,7 +499,7 @@ def page_simulateur(model_final, colonnes_final):
                 mode="gauge+number",
                 value=proba_y * 100,
                 number={"suffix": "%"},
-                title={"text": "Probabilité d'accord (classe Y)"},
+                title={"text": "Indice de solvabilité du dossier"},
                 gauge={
                     "axis": {"range": [0, 100]},
                     "bar": {"color": COLORS["primary"]},
