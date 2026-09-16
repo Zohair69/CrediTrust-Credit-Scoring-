@@ -304,7 +304,7 @@ def page_eda(df):
         color_discrete_map={"Y": COLORS["success"], "N": COLORS["danger"]},
         hole=0.45,
     )
-    st.plotly_chart(style_fig(fig), use_container_width=True)
+    st.plotly_chart(style_fig(fig), width="stretch")
 
     st.subheader("Distributions des variables numériques")
     num_col = st.selectbox(
@@ -314,7 +314,7 @@ def page_eda(df):
         df, x=num_col, color="Loan_Status", barmode="overlay", nbins=40,
         color_discrete_map={"Y": COLORS["success"], "N": COLORS["danger"]},
     )
-    st.plotly_chart(style_fig(fig), use_container_width=True)
+    st.plotly_chart(style_fig(fig), width="stretch")
 
     st.subheader("Loan_Status selon les variables catégorielles")
     cat_col = st.selectbox(
@@ -326,7 +326,7 @@ def page_eda(df):
         croisement_melt, x=cat_col, y="Proportion", color="Loan_Status", barmode="stack",
         color_discrete_map={"Y": COLORS["success"], "N": COLORS["danger"]},
     )
-    st.plotly_chart(style_fig(fig), use_container_width=True)
+    st.plotly_chart(style_fig(fig), width="stretch")
 
     st.subheader("Corrélation entre variables numériques")
     df_corr_num = df.select_dtypes(include="number").corr()
@@ -334,7 +334,7 @@ def page_eda(df):
         df_corr_num, text_auto=".2f", color_continuous_scale=["#E63946", "#F7F9FC", "#2EC4B6"],
         aspect="auto",
     )
-    st.plotly_chart(style_fig(fig), use_container_width=True)
+    st.plotly_chart(style_fig(fig), width="stretch")
 
 
 def page_pretraitement(train_info):
@@ -393,7 +393,7 @@ def page_comparaison(resultats_df):
     st.dataframe(
         resultats_df.style.format({c: "{:.3f}" for c in resultats_df.columns if c != "Modèle"})
         .highlight_max(subset=["Rappel classe N"], color=COLORS["success"] + "40"),
-        use_container_width=True,
+        width="stretch",
     )
 
     metrique = st.radio(
@@ -405,7 +405,7 @@ def page_comparaison(resultats_df):
         color_discrete_map=MODEL_COLORS, text_auto=".3f",
     )
     fig.update_layout(showlegend=False, yaxis_range=[0, 1])
-    st.plotly_chart(style_fig(fig), use_container_width=True)
+    st.plotly_chart(style_fig(fig), width="stretch")
 
     st.markdown(
         '<div class="info-card">'
@@ -430,7 +430,7 @@ def page_importance(importances_df, cm):
         df_top, x="Importance", y="Variable", orientation="h",
         color="Importance", color_continuous_scale=["#3D5A80", "#2EC4B6", "#43AA8B"],
     )
-    st.plotly_chart(style_fig(fig), use_container_width=True)
+    st.plotly_chart(style_fig(fig), width="stretch")
 
     st.subheader("Matrice de confusion (Random Forest balanced)")
     fig_cm = px.imshow(
@@ -438,7 +438,7 @@ def page_importance(importances_df, cm):
         x=["Prédit N", "Prédit Y"], y=["Réel N", "Réel Y"],
         color_continuous_scale=["#F7F9FC", COLORS["primary"]],
     )
-    st.plotly_chart(style_fig(fig_cm), use_container_width=True)
+    st.plotly_chart(style_fig(fig_cm), width="stretch")
 
 
 def page_simulateur(model_final, colonnes_final):
@@ -462,7 +462,7 @@ def page_simulateur(model_final, colonnes_final):
             loan_amount = st.number_input("Montant du prêt (en milliers)", min_value=0, value=150, step=10)
             loan_term = st.selectbox("Durée du prêt (mois)", [360, 180, 120, 84, 60, 36, 12], index=0)
 
-        submitted = st.form_submit_button("Évaluer la demande", use_container_width=True)
+        submitted = st.form_submit_button("Évaluer la demande", width="stretch")
 
     if submitted:
         saisie = {
@@ -502,7 +502,7 @@ def page_simulateur(model_final, colonnes_final):
                 },
             ))
             fig.update_layout(height=250, margin=dict(l=20, r=20, t=50, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
 
 def page_recommandations():
@@ -554,15 +554,17 @@ def main():
     )
 
     st.sidebar.divider()
-    uploaded = st.sidebar.file_uploader("loan_data.csv (si absent du dossier)", type="csv")
 
     try:
-        df = load_data(uploaded if uploaded is not None else "loan_data.csv")
+        df = load_data("loan_data.csv")
     except FileNotFoundError:
         st.error(
-            "Fichier `loan_data.csv` introuvable. Place-le dans le même dossier que "
-            "ce script, ou dépose-le via la barre latérale."
+            "Fichier `loan_data.csv` introuvable. Vérifie qu'il est bien présent "
+            "à la racine du dépôt GitHub, à côté de ce script."
         )
+        st.stop()
+    except Exception as e:
+        st.error(f"Erreur lors du chargement de loan_data.csv : {e}")
         st.stop()
 
     if page == "🏠 Contexte":
