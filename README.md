@@ -1,11 +1,11 @@
-# 💳 CrediTrust Finance — Moteur de Crédit Scoring
+# 💳 CrediTrust Finance : Moteur de Crédit Scoring
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-orange)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red)
 ![Statut](https://img.shields.io/badge/Statut-Projet%20de%20formation-lightgrey)
 
-Projet réalisé dans le cadre de la formation **Data Analyst — Simplon Lyon**, brief *Machine Learning & Classification* (Activité 3), pour le client fictif **CrediTrust Finance**.
+Projet réalisé dans le cadre de la formation **Data Analyst, Simplon Lyon**, brief *Machine Learning & Classification* (Activité 3), pour le client fictif **CrediTrust Finance**.
 
 **🚀 Démo en ligne :** [creditrust-scoring.streamlit.app](https://creditrust-scoring.streamlit.app)
 **📑 Présentation :** [presentation.pdf](./presentation.pdf)
@@ -93,4 +93,4 @@ Le fichier `loan_data.csv` doit être présent à la racine du dépôt (déjà i
 
 ---
 
-*Projet académique — Simplon Lyon, formation Data Analyst.*
+*Projet académique à Simplon Lyon, formation Data Analyst.*
