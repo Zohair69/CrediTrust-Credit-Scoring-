@@ -8,6 +8,7 @@
 Projet réalisé dans le cadre de la formation **Data Analyst — Simplon Lyon**, brief *Machine Learning & Classification* (Activité 3), pour le client fictif **CrediTrust Finance**.
 
 **🚀 Démo en ligne :** [creditrust-scoring.streamlit.app](https://creditrust-scoring.streamlit.app)
+**📑 Présentation :** [presentation.pdf](./presentation.pdf)
 
 ---
 
@@ -35,6 +36,7 @@ CrediTrust-Credit-Scoring-/
 ├── dashboard_creditrust.py   # Dashboard Streamlit interactif
 ├── requirements.txt          # Dépendances Python
 ├── loan_data.csv             # Jeu de données
+├── presentation.pdf          # Support de présentation (restitution orale)
 └── README.md
 ```
 
